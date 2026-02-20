@@ -1,17 +1,23 @@
 package com.example;
 
 public class CuentaBancaria {
+
+    // Atributos privados
     private String titular;
     private double saldo;
 
-    public CuentaBancaria(String titular, double saldo){
+    // 1️⃣ Constructor con validación
+    public CuentaBancaria(String titular, double saldoInicial) {
         this.titular = titular;
-        this.saldo = saldo;
-        if (saldo < 0){
+
+        if (saldoInicial < 0) {
             this.saldo = 0;
+        } else {
+            this.saldo = saldoInicial;
         }
     }
 
+    // 2️⃣ Getter y Setter de titular
     public String getTitular() {
         return titular;
     }
@@ -20,24 +26,24 @@ public class CuentaBancaria {
         this.titular = titular;
     }
 
+    // 2️⃣ Getter de saldo (SIN setter)
     public double getSaldo() {
         return saldo;
     }
 
-    public void depositar(double cantidad){
-        if (cantidad > 0){
-            this.saldo += cantidad;
+    // 3️⃣ Método depositar
+    public void depositar(double cantidad) {
+        if (cantidad > 0) {
+            saldo += cantidad;
         }
     }
 
-    public void retirar(double cantidad){
-        if (cantidad > 0 && this.saldo >= cantidad){
-            this.saldo -= cantidad;
+    // 4️⃣ Método retirar
+    public void retirar(double cantidad) {
+        if (cantidad > 0 && cantidad <= saldo) {
+            saldo -= cantidad;
+        } else {
+            System.out.println("Fondos insuficientes");
         }
-        else{
-            System.out.println(" Error:No hay suficiente saldo");
-        }   
-        
     }
 }
-

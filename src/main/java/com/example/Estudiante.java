@@ -6,44 +6,46 @@ public class Estudiante {
     private int edad;
     private double promedio;
 
-    public Estudiante(String nombre, int edad, double promedio) {
-
-        if (nombre == null || nombre.isEmpty()) {
-            throw new IllegalArgumentException("El nombre no puede estar vacío");
-        }
-
-        setEdad(edad);
-        setPromedio(promedio);
-
-        this.nombre = nombre;
+    public Estudiante() {
+        this.nombre = "Desconocido";
+        this.edad = 0;
+        this.promedio = 0.0;
     }
 
-    // ===== GETTERS =====
+    public Estudiante(String nombre, int edad, double promedio) {
+        this.nombre = nombre;
+        setEdad(edad);
+        this.promedio = promedio;
+    }
+
     public String getNombre() {
         return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getEdad() {
         return edad;
     }
 
+    public void setEdad(int edad) {
+        if (edad > 0) {
+            this.edad = edad;
+        }
+    }
+
     public double getPromedio() {
         return promedio;
     }
 
-    // ===== SETTERS CON VALIDACIÓN FUERTE =====
-    public void setEdad(int edad) {
-        if (edad <= 0) {
-            throw new IllegalArgumentException("La edad debe ser mayor que 0");
-        }
-        this.edad = edad;
+    public void setPromedio(double promedio) {
+        this.promedio = promedio;
     }
 
-    public void setPromedio(double promedio) {
-        if (promedio < 0.0 || promedio > 5.0) {
-            throw new IllegalArgumentException("El promedio debe estar entre 0.0 y 5.0");
-        }
-        this.promedio = promedio;
+    public boolean haAprobado() {
+        return promedio >= 3.0;
     }
 
     public void mostrarInfo() {
@@ -51,7 +53,7 @@ public class Estudiante {
         System.out.println("Edad: " + edad);
         System.out.println("Promedio: " + promedio);
 
-        if (promedio >= 3.0) {
+        if (haAprobado()) {
             System.out.println("Estado: APROBADO");
         } else {
             System.out.println("Estado: REPROBADO");

@@ -2,48 +2,55 @@ package com.example;
 
 public class CuentaBancaria {
 
-    // Atributos privados
     private String titular;
     private double saldo;
 
-    // 1️⃣ Constructor con validación
     public CuentaBancaria(String titular, double saldoInicial) {
-        this.titular = titular;
+
+        if (titular == null || titular.isEmpty()) {
+            throw new IllegalArgumentException("El titular no puede estar vacío");
+        }
 
         if (saldoInicial < 0) {
-            this.saldo = 0;
-        } else {
-            this.saldo = saldoInicial;
+            throw new IllegalArgumentException("El saldo inicial no puede ser negativo");
         }
+
+        this.titular = titular;
+        this.saldo = saldoInicial;
     }
 
-    // 2️⃣ Getter y Setter de titular
+    // ===== GETTERS =====
     public String getTitular() {
         return titular;
     }
 
-    public void setTitular(String titular) {
-        this.titular = titular;
-    }
-
-    // 2️⃣ Getter de saldo (SIN setter)
     public double getSaldo() {
         return saldo;
     }
 
-    // 3️⃣ Método depositar
-    public void depositar(double cantidad) {
-        if (cantidad > 0) {
-            saldo += cantidad;
+    // ===== MÉTODOS =====
+    public void depositar(double monto) {
+        if (monto <= 0) {
+            throw new IllegalArgumentException("El monto a depositar debe ser mayor que 0");
         }
+
+        saldo += monto;
     }
 
-    // 4️⃣ Método retirar
-    public void retirar(double cantidad) {
-        if (cantidad > 0 && cantidad <= saldo) {
-            saldo -= cantidad;
-        } else {
-            System.out.println("Fondos insuficientes");
+    public void retirar(double monto) {
+        if (monto <= 0) {
+            throw new IllegalArgumentException("El monto a retirar debe ser mayor que 0");
         }
+
+        if (monto > saldo) {
+            throw new IllegalArgumentException("Fondos insuficientes");
+        }
+
+        saldo -= monto;
+    }
+
+    public void mostrarDetalles() {
+        System.out.println("Titular: " + titular);
+        System.out.println("Saldo: " + saldo);
     }
 }

@@ -2,33 +2,57 @@ package com.example;
 
 public class Libro {
 
-    // Atributos privados
     private String titulo;
     private String autor;
     private int paginas;
 
-    // 1️⃣ Constructor vacío
+    // Constructor vacío
     public Libro() {
         this.titulo = "Desconocido";
         this.autor = "Anónimo";
         this.paginas = 0;
     }
 
-    // 2️⃣ Constructor con título y autor
+    // Constructor con título y autor
     public Libro(String titulo, String autor) {
-        this.titulo = titulo;
-        this.autor = autor;
-        this.paginas = 0;
+        this(titulo, autor, 0);
     }
 
-    // 3️⃣ Constructor completo
+    // Constructor completo con validación
     public Libro(String titulo, String autor, int paginas) {
+
+        if (titulo == null || titulo.isEmpty()) {
+            throw new IllegalArgumentException("El título no puede estar vacío");
+        }
+
+        if (autor == null || autor.isEmpty()) {
+            throw new IllegalArgumentException("El autor no puede estar vacío");
+        }
+
+        if (paginas < 0) {
+            throw new IllegalArgumentException("Las páginas no pueden ser negativas");
+        }
+
         this.titulo = titulo;
         this.autor = autor;
         this.paginas = paginas;
     }
 
-    // 4️⃣ Método mostrarDetalles()
+    // ===== GETTERS =====
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public int getPaginas() {
+        return paginas;
+    }
+
+    // Método para mostrar información
     public void mostrarDetalles() {
         System.out.println("Libro: " + titulo +
                            " | Autor: " + autor +

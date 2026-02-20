@@ -2,66 +2,56 @@ package com.example;
 
 public class Estudiante {
 
-    // Atributos privados
     private String nombre;
     private int edad;
     private double promedio;
 
-    // 1️⃣ Constructor vacío
-    public Estudiante() {
-        this.nombre = "Desconocido";
-        this.edad = 0;
-        this.promedio = 0.0;
-    }
-
-    // 1️⃣ Constructor completo
     public Estudiante(String nombre, int edad, double promedio) {
+
+        if (nombre == null || nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+
+        setEdad(edad);
+        setPromedio(promedio);
+
         this.nombre = nombre;
-        setEdad(edad);  // Validación aquí
-        this.promedio = promedio;
     }
 
-    // 2️⃣ Getters y Setters
-
+    // ===== GETTERS =====
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getEdad() {
         return edad;
     }
 
-    // Validación solicitada
-    public void setEdad(int edad) {
-        if (edad > 0) {
-            this.edad = edad;
-        }
-    }
-
     public double getPromedio() {
         return promedio;
     }
 
+    // ===== SETTERS CON VALIDACIÓN FUERTE =====
+    public void setEdad(int edad) {
+        if (edad <= 0) {
+            throw new IllegalArgumentException("La edad debe ser mayor que 0");
+        }
+        this.edad = edad;
+    }
+
     public void setPromedio(double promedio) {
+        if (promedio < 0.0 || promedio > 5.0) {
+            throw new IllegalArgumentException("El promedio debe estar entre 0.0 y 5.0");
+        }
         this.promedio = promedio;
     }
 
-    // 3️⃣ Método haAprobado
-    public boolean haAprobado() {
-        return promedio >= 3.0;
-    }
-
-    // 4️⃣ Método mostrarInfo
     public void mostrarInfo() {
         System.out.println("Nombre: " + nombre);
         System.out.println("Edad: " + edad);
         System.out.println("Promedio: " + promedio);
 
-        if (haAprobado()) {
+        if (promedio >= 3.0) {
             System.out.println("Estado: APROBADO");
         } else {
             System.out.println("Estado: REPROBADO");
